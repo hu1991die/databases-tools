@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<moduleList>
+	<!--  type类型为all,表示导出所有的table表  -->
+	 <module moduleName="所有模块" exportType="all"/>
+</moduleList>

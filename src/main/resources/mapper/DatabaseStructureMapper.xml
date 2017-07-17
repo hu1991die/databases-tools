@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.feizi.dao.DatabaseStructureDao">
+
+    <!-- 数据表信息 -->
+    <resultMap id="tableInfo" type="com.feizi.domain.TableInfo">
+        <result column="table_name" property="tableName"/>
+        <result column="table_comment" property="tableComment"/>
+    </resultMap>
+
+    <!-- 数据表的列字段信息 -->
+    <resultMap id="columnInfo" type="com.feizi.domain.ColumnInfo">
+        <result column="column_name" property="columnName"></result>
+        <result column="data_type" property="dataType"></result>
+        <result column="column_comment" property="columnComment"></result>
+        <result column="column_key" property="columnKey"></result>
+        <result column="column_type" property="columnType"></result>
+        <result column="is_nullable" property="isNullAble"></result>
+    </resultMap>
+
+    <!-- 根据数据库名（schema）查询数据表列表 -->
+    <select id="queryTableInfoListBySchemaName" resultMap="tableInfo">
+        SELECT
+            table_name,
+            table_comment
+        FROM
+            information_schema. TABLES
+        WHERE table_schema = #{schemaName}
+    </select>
+
+    <!-- 根据数据库名和数据表名前缀查询数据表列表 -->
+    <select id="queryTableInfoListBySchemaNameAndPerfix" resultMap="tableInfo">
+        SELECT
+        table_name,
+        table_comment
+        FROM
+        information_schema. TABLES
+        WHERE table_schema = #{schemaName}
+        AND table_name like concat(#{tablePerfix},'%')
+    </select>
+
+    <!-- 根据数据库名和数据表名数组查询数据表列表 -->
+    <select id="queryTableInfoListBySchemaNameAndTableArray" resultMap="tableInfo">
+        SELECT
+        table_name,
+        table_comment
+        FROM
+        information_schema. TABLES
+        WHERE table_schema = #{schemaName}
+        AND table_name in
+        <foreach collection="tableNameArray" index="index" item="tableName" open="(" separator="," close=")">
+            #{tableName}
+        </foreach>
+    </select>
+
+    <!-- 根据数据库名称和数据表名称查询表的列字段列表信息 -->
+    <select id="queryColumnInfoList" resultMap="columnInfo">
+        SELECT
+            column_name,
+            data_type,
+            column_type,
+            column_key,
+            is_nullable,
+            column_comment
+        FROM
+            information_schema. COLUMNS
+        WHERE table_schema = #{schemaName}
+        AND table_name = #{tableName}
+    </select>
+</mapper>
