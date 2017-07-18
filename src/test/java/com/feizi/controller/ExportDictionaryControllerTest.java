@@ -32,4 +32,15 @@ public class ExportDictionaryControllerTest extends BaseTest{
         logger.info("执行成功，总共耗时：" + ((endTime - startTime) / 1000)
                 + "秒，请查看输出结果文件夹:" + customProperties.getExportFolder());
     }
+
+    @Test
+    public void testFindListForSearch() throws Exception {
+        long startTime = System.currentTimeMillis();
+        exportDictionaryController.findListForSearch(htmlTemplateFile, module, "车牌");
+        long endTime = System.currentTimeMillis();
+
+        logger.info("执行成功，总共耗时：" + ((endTime - startTime) / 1000)
+                + "秒，请查看输出结果文件夹:" + customProperties.getExportFolder());
+    }
+
 }
