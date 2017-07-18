@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -50,6 +51,46 @@ public class ExportDictionaryController {
             }
         }
 
+        export(htmlTemplateFile, module, tableInfoList);
+    }
+
+
+    public void findListForSearch(String htmlTemplateFile, Module module, String content) {
+
+        List<TableInfo> resultTableList = new ArrayList<>();
+        //数据库名称
+        String schemaName = customProperties.getSchemaName();
+
+        //查询表结构列表集合
+        List<TableInfo> tableInfoList = databaseStructureService.queryTableInfoList(schemaName, module);
+        if(null != tableInfoList && tableInfoList.size() > 0){
+            for (TableInfo tableInfo : tableInfoList){
+                String tableName = tableInfo.getTableName();
+
+                //根据数据表名称查询表结构列表集合
+                List<ColumnInfo> resultColumnInfoList = new ArrayList<>();
+                boolean containsFlag = false;
+                List<ColumnInfo> columnInfoList = databaseStructureService.queryColumnInfoList(schemaName, tableName);
+                for (ColumnInfo columnInfo : columnInfoList) {
+                    String columnComment = columnInfo.getColumnComment();
+                    if(columnComment.indexOf(content) >= 0){
+                        resultColumnInfoList.add(columnInfo);
+                        containsFlag = true;
+                    }
+                }
+
+                if (containsFlag) {
+                    tableInfo.setColumnInfoList(resultColumnInfoList);
+                    resultTableList.add(tableInfo);
+                }
+
+            }
+        }
+
+        export(htmlTemplateFile, module, resultTableList);
+    }
+
+    private void export(String htmlTemplateFile, Module module, List<TableInfo> tableInfoList){
         //获取上下文
         VelocityContext context = new VelocityContext();
         //设置模块名称
