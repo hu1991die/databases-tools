@@ -55,5 +55,3 @@
 #### 5、执行效果：
 
 ![1](https://raw.githubusercontent.com/hu1991die/picture-server/master/1.png)
-
-![2](https://raw.githubusercontent.com/hu1991die/picture-server/master/2.png)
