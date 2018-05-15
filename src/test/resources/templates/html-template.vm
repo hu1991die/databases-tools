@@ -26,7 +26,7 @@
 			background-color:#eff2f5;
 		}
 		p{
-			margin-top:30px;
+			margin-top:5px;
 			font-size:12px;
 			color:#555;
 		}
@@ -103,12 +103,12 @@
     </table>
 	
     <a id="headLOCAL_6-${module.moduleName}" name="headLOCAL_6-${module.moduleName}"></a>
-    <h2>模块-${module.moduleName}清单:</h2>
+    <h2>模块-【${module.moduleName}】数据表清单:</h2>
     <table cellspacing="0" cellpadding="0" class="common-table table-border">
         <thead>
            <tr class="head-1">
             <th>表名</th>
-            <th>说明</th>
+            <th>备注说明</th>
           </tr>
         </thead>
           
@@ -120,7 +120,7 @@
        				<tr>
        			#end
 		             	<td><a href="#LOCAL_6-${tableInfo.tableName}">${tableInfo.tableName}</a></td>
-		             	<td>${tableInfo.tableName}（${tableInfo.tableComment}）</td>
+		             	<td>${tableInfo.tableComment}</td>
        				</tr>
         	#end
       </tbody>
@@ -130,8 +130,11 @@
 	
     #foreach ($tableInfo in $tableInfoList)
 		<a id="LOCAL_6-${tableInfo.tableName}" name="LOCAL_6-${tableInfo.tableName}"></a>
-		<p><h5>表名:${tableInfo.tableName} |说明:${tableInfo.tableComment}</h5></p>
-    	<h3>${tableInfo.tableName}（${tableInfo.tableComment}）</h3>
+		<p>
+			<h5>表名:${tableInfo.tableName}</h5>
+			<h5>备注说明：${tableInfo.tableComment}</h5>
+		</p>
+    	<h3>${tableInfo.tableName}</h3>
     	
 	    <table cellspacing="0" cellpadding="0" class="common-table table-border">
 	        <thead>
@@ -151,13 +154,13 @@
 	        		#else
            				<tr>
            			#end
-							<td>${columnInfo.columnName}</td>
-							<td>${columnInfo.dataType}</td>
-							<td>${columnInfo.columnComment}</td>
-							<td>${columnInfo.columnKey}</td>
-							<td>${columnInfo.columnType}</td>
-							<td>${columnInfo.isNullAble}</td>
-	      				</tr>
+						<td>${columnInfo.columnName}</td>
+						<td>${columnInfo.dataType}</td>
+						<td>${columnInfo.columnComment}</td>
+						<td>${columnInfo.columnKey}</td>
+						<td>${columnInfo.columnType}</td>
+						<td>${columnInfo.isNullAble}</td>
+					</tr>
       			#end
 	       </tbody>
 	    </table>

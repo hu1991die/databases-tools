@@ -27,6 +27,7 @@
         FROM
             information_schema. TABLES
         WHERE table_schema = #{schemaName}
+        AND table_type = 'base table'
     </select>
 
     <!-- 根据数据库名和数据表名前缀查询数据表列表 -->
@@ -38,6 +39,7 @@
         information_schema. TABLES
         WHERE table_schema = #{schemaName}
         AND table_name like concat(#{tablePerfix},'%')
+        AND table_type = 'base table'
     </select>
 
     <!-- 根据数据库名和数据表名数组查询数据表列表 -->
@@ -52,6 +54,7 @@
         <foreach collection="tableNameArray" index="index" item="tableName" open="(" separator="," close=")">
             #{tableName}
         </foreach>
+        AND table_type = 'base table'
     </select>
 
     <!-- 根据数据库名称和数据表名称查询表的列字段列表信息 -->

@@ -12,6 +12,8 @@ import org.apache.velocity.VelocityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,12 @@ public class ExportDictionaryController {
     @Resource
     private HtmlTemplateUtils htmlTemplateUtils;
 
+    /**
+     * 导出html文件到指定目录
+     * @param htmlTemplateFile
+     * @param module
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/export")
     public void exportDictionary(String htmlTemplateFile, Module module) {
         //数据库名称
         String schemaName = customProperties.getSchemaName();
@@ -51,6 +59,7 @@ public class ExportDictionaryController {
             }
         }
 
+        //导出html模板
         export(htmlTemplateFile, module, tableInfoList);
     }
 
@@ -90,6 +99,12 @@ public class ExportDictionaryController {
         export(htmlTemplateFile, module, resultTableList);
     }
 
+    /**
+     * 导出操作
+     * @param htmlTemplateFile
+     * @param module
+     * @param tableInfoList
+     */
     private void export(String htmlTemplateFile, Module module, List<TableInfo> tableInfoList){
         //获取上下文
         VelocityContext context = new VelocityContext();

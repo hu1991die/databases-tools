@@ -20,7 +20,7 @@ public final class PropertiesUtils {
     /**配置文件实例对象*/
     private static Properties properties = null;
 
-    public PropertiesUtils() {
+    private PropertiesUtils() {
     }
 
     /**
